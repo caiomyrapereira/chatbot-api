@@ -22,25 +22,17 @@ session_dict = json.loads(session_json)
 session_id = session_dict['session_id']
 print(session_id)
 
-print('******* INICIANDO CONVERSA')
+texto = "bonus"
+
 message = assistant.message(
     assistantID,
-    session_id,).get_result()
+    session_id,
+    input={'text': texto}).get_result()
 message_json = json.dumps(message, indent=2)
 message_dict = json.loads(message_json)
 for i in range(len(message_dict['output']['generic'])):
     print(message_dict['output']['generic'][i]['text'])
-texto = input('resposta: ')
-while texto:
-    message = assistant.message(
-        assistantID,
-        session_id,
-        input={'text': texto}).get_result()
-    message_json = json.dumps(message, indent=2)
-    message_dict = json.loads(message_json)
-    for i in range(len(message_dict['output']['generic'])):
-        print(message_dict['output']['generic'][i]['text'])
-        texto = input('resposta: ')
+    texto = "bonus";
 
 print('*******Encerrando a sessão')
 assistant.delete_session(assistantID,session_id)
