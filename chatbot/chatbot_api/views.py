@@ -4,18 +4,12 @@
 
 # from django.shortcuts import render
 from rest_framework.decorators import api_view
-from .business import principal, Init, chat
-from .serializer import PerguntaSerializer, StartChatSerializer, DataSerializer
+from .business import  Init, chat
+from .serializer import  StartChatSerializer, DataSerializer
 from django.http.response import JsonResponse
 from rest_framework.response import Response
 
 # Create your views here.
-@api_view(['GET'])
-def obterPrincipal(request):
- perguntaPrincipal = principal.obterMenuPrincipal()
- perguntaPrincipal_serializer = PerguntaSerializer(perguntaPrincipal)
- return JsonResponse(perguntaPrincipal_serializer.data, safe=False)
-
 
 @api_view(['GET'])
 def start(request):
@@ -33,7 +27,7 @@ def postData(request):
   print(data.data["description"])
   newData = DataSerializer(chat.chat(data.data["description"]))
   print(newData)
-  setattr(data, 'description', "tomar no cu")
+  setattr(data, 'description', "default...")
 
   return JsonResponse(newData.data, safe=False)
   print("erro do caio")
